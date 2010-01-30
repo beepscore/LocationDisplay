@@ -13,18 +13,11 @@
 #pragma mark properties
 
 @synthesize locationManager;
+@synthesize latitudeLabel;
+@synthesize longitudeLabel;
 
 #pragma mark -
-#pragma mark initializers / destructors
-
-
-- (void)dealloc {
-    [locationManager release], locationManager = nil;
-    
-    [super dealloc];
-}
-
-
+#pragma mark initializers
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -59,6 +52,32 @@
 }
 */
 
+
+#pragma mark destructors and memory cleanUp
+// use cleanUp method to avoid repeating code in setView, viewDidUnload, and dealloc
+- (void)cleanUp {
+    [locationManager release], locationManager = nil;
+    [latitudeLabel release], latitudeLabel = nil;
+    [longitudeLabel release], longitudeLabel = nil;    
+}
+
+
+// Release IBOutlets in setView.  
+// Ref http://developer.apple.com/iPhone/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
+//
+// http://moodle.extn.washington.edu/mod/forum/discuss.php?d=3162
+- (void)setView:(UIView *)aView {
+    
+    if (!aView) { // view is being set to nil        
+        // set outlets to nil, e.g. 
+        // self.anOutlet = nil;
+        [self cleanUp];
+    }    
+    // Invoke super's implementation last    
+    [super setView:aView];    
+}
+
+
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -66,9 +85,17 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
+
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+	[self cleanUp];
+}
+
+
+
+- (void)dealloc {
+    [self cleanUp];
+    [super dealloc];
 }
 
 

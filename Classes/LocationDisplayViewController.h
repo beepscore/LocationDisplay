@@ -12,11 +12,16 @@
 
 @interface LocationDisplayViewController : UIViewController <CLLocationManagerDelegate>{
     CLLocationManager *locationManager;
+    UILabel *latitudeLabel;
+    UILabel *longitudeLabel;
+
 }
 #pragma mark -
 #pragma mark properties
 
 @property(nonatomic,retain)CLLocationManager *locationManager;
+@property(nonatomic,retain)IBOutlet UILabel *latitudeLabel;
+@property(nonatomic,retain)IBOutlet UILabel *longitudeLabel;
 
 @end
 
