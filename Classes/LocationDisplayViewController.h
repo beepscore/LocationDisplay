@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface LocationDisplayViewController : UIViewController {
 
+@interface LocationDisplayViewController : UIViewController <CLLocationManagerDelegate>{
+    CLLocationManager *locationManager;
 }
+#pragma mark -
+#pragma mark properties
+
+@property(nonatomic,retain)CLLocationManager *locationManager;
 
 @end
 

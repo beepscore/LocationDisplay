@@ -9,7 +9,20 @@
 #import "LocationDisplayViewController.h"
 
 @implementation LocationDisplayViewController
+#pragma mark -
+#pragma mark properties
 
+@synthesize locationManager;
+
+#pragma mark -
+#pragma mark initializers / destructors
+
+
+- (void)dealloc {
+    [locationManager release], locationManager = nil;
+    
+    [super dealloc];
+}
 
 
 /*
@@ -29,12 +42,13 @@
 */
 
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
-*/
 
 
 /*
@@ -57,9 +71,5 @@
 	// e.g. self.myOutlet = nil;
 }
 
-
-- (void)dealloc {
-    [super dealloc];
-}
 
 @end
