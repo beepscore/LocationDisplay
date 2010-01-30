@@ -13,8 +13,8 @@
 #pragma mark properties
 
 @synthesize locationManager;
-@synthesize latitudeLabel;
-@synthesize longitudeLabel;
+@synthesize latitudeTextField;
+@synthesize longitudeTextField;
 
 #pragma mark -
 #pragma mark initializers
@@ -57,8 +57,8 @@
 // use cleanUp method to avoid repeating code in setView, viewDidUnload, and dealloc
 - (void)cleanUp {
     [locationManager release], locationManager = nil;
-    [latitudeLabel release], latitudeLabel = nil;
-    [longitudeLabel release], longitudeLabel = nil;    
+    [latitudeTextField release], latitudeTextField = nil;
+    [longitudeTextField release], longitudeTextField = nil;    
 }
 
 
@@ -96,6 +96,16 @@
 - (void)dealloc {
     [self cleanUp];
     [super dealloc];
+}
+
+#pragma mark Location methods
+- (void)locationManager:(CLLocationManager *)manager
+didUpdateToLocation:(CLLocation *)newLocation
+fromLocation:(CLLocation *)oldLocation {
+    latitudeTextField.text = [NSString stringWithFormat:@"%3.5f",
+                          newLocation.coordinate.latitude];
+    longitudeTextField.text = [NSString stringWithFormat:@"%3.5f",
+                          newLocation.coordinate.longitude];
 }
 
 
