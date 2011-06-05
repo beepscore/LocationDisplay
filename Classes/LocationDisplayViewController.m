@@ -64,8 +64,6 @@
 
 // Release IBOutlets in setView.  
 // Ref http://developer.apple.com/iPhone/library/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmNibObjects.html
-//
-// http://moodle.extn.washington.edu/mod/forum/discuss.php?d=3162
 - (void)setView:(UIView *)aView {
     
     if (!aView) { // view is being set to nil        
